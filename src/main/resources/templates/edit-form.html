@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Materia</title>
+</head>
+<body>
+<h1>Editar Materia</h1>
+
+<form th:action="@{'/update/' + ${subject.id}}" method="POST">
+  <label for="subjectName">Nombre de la Materia:</label><br>
+  <input type="text" id="subjectName" name="subjectName"
+         th:value="${subject.subjectName}" required><br><br>
+
+  <label for="subjectDescription">Descripción:</label><br>
+  <textarea id="subjectDescription" name="subjectDescription" rows="3"
+            required th:text="${subject.subjectDescription}"></textarea><br><br>
+
+  <label for="subjectClassroom">Aula:</label><br>
+  <input type="number" id="subjectClassroom" name="subjectClassroom"
+         th:value="${subject.subjectClassroom}" required><br><br>
+
+  <label for="startTime">Hora de Inicio:</label><br>
+  <input type="time" id="startTime" name="startTime"
+         th:value="${subject.startTime}" required><br><br>
+
+  <label for="endTime">Hora de Fin:</label><br>
+  <input type="time" id="endTime" name="endTime"
+         th:value="${subject.endTime}" required><br><br>
+
+  <label for="teacherId">Profesor:</label><br>
+  <select id="teacherId" name="teacherId" required>
+    <option th:each="teacher : ${teachers}"
+            th:value="${teacher.id}"
+            th:selected="${teacher.id == subject.teacher.id}"
+            th:text="${teacher.name}">
+    </option>
+  </select><br><br>
+
+  <button type="submit">Guardar Cambios</button>
+</form>
+
+<a href="/home">Cancelar</a>
+</body>
+</html>

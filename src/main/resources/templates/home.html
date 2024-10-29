@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Materias</title>
+</head>
+<body>
+<h1>Lista de Materias</h1>
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Nombre</th>
+    <th>Descripción</th>
+    <th>Aula</th>
+    <th>Hora de Inicio</th>
+    <th>Hora de Fin</th>
+    <th>Profesor</th>
+    <th>Acciones</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="subject : ${subjects}">
+    <td th:text="${subject.id}"></td>
+    <td th:text="${subject.subjectName}"></td>
+    <td th:text="${subject.subjectDescription}"></td>
+    <td th:text="${subject.subjectClassroom}"></td>
+    <td th:text="${subject.startTime}"></td>
+    <td th:text="${subject.endTime}"></td>
+    <td th:text="${subject.teacher.name}"></td>
+    <td>
+      <a th:href="@{'/edit/' + ${subject.id}}" sec:authorize="hasAuthority('RECTOR')">Editar</a> |
+      <a th:href="@{'/delete/' + ${subject.id}}" sec:authorize="hasAuthority('RECTOR')">Eliminar</a> |
+      <a th:href="@{'/change-time/' + ${subject.id}}"
+         sec:authorize="hasAnyAuthority('RECTOR', 'DOCENTE')">Cambiar horario</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a href="new" sec:authorize="hasAuthority('RECTOR')">Crear nueva clase</a>
+<a href="/logout">Cerrar sesión</a>
+</body>
+</html>

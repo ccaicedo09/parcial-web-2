@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Materia</title>
+</head>
+<body>
+<h1>Crear Materia</h1>
+
+<form th:action="@{/create-subject}" method="POST">
+  <label for="subjectName">Nombre de la Materia:</label><br>
+  <input type="text" id="subjectName" name="subjectName" required><br><br>
+
+  <label for="subjectDescription">Descripción:</label><br>
+  <textarea id="subjectDescription" name="subjectDescription" rows="3" required></textarea><br><br>
+
+  <label for="subjectClassroom">Aula:</label><br>
+  <input type="number" id="subjectClassroom" name="subjectClassroom" required><br><br>
+
+  <label for="startTime">Hora de Inicio (HH:MM):</label><br>
+  <input type="time" id="startTime" name="startTime" required><br><br>
+
+  <label for="endTime">Hora de Fin (HH:MM):</label><br>
+  <input type="time" id="endTime" name="endTime" required><br><br>
+
+  <label for="teacherId">Profesor:</label><br>
+  <select id="teacherId" name="teacherId" required>
+    <option value="" disabled selected>Selecciona un profesor</option>
+    <option th:each="teacher : ${teachers}"
+            th:value="${teacher.id}"
+            th:text="${teacher.name}">
+    </option>
+  </select><br><br>
+
+  <button type="submit">Crear Materia</button>
+</form>
+
+<a href="/home">Cancelar</a>
+</body>
+</html>
